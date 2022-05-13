@@ -1,39 +1,45 @@
-import { getGovernors, setGovernor, getActiveGovernors, getTransientState } from "./database.js";
-
-// const governors = getGovernors()
-const activeGovernors = getActiveGovernors()
-
-document.addEventListener(
-  "change",
-  (event) => {
-      if (event.target.id === "governor") {
-          setGovernor(parseInt(event.target.value))
-      }
-  }
-)
+import { setGovernor, getActiveGovernors, getTransientState, setColony } from "./database.js";
 
 // create dropdown menu populated with active governors
 export const Governors = () => {
-  let html = "<h2>Interiors</h2>"
-
-  html += '<select id="governorSelect">'
-  html += '<option value="0">Choose a Governor</option>'
+  const transientState = getTransientState()
+  // let selectedGovernorId =
+  // typeof transientState.selectedGovernorId !== "undefined" && transientState.selectedGovernorId
+  // ? transientState.selectedGovernorId
+  // : 0;
+  const governors = getActiveGovernors()
+  let html = "";
   
-  // iterate through governors to find active
-  for (const governor of activeGovernors) {
-      html += `<option value="${governor.id}">${governor.name}</option>`
-  }
-
-  html += "</select>"
+  html += '<label for="governorSelect">Choose Governor: </label>';
+  html += '<select id="governorSelect">';
+  html += '<option value="0">Select a Governor</option>';
+  
+  const arrayOfOptions = governors.map((governor) => {
+    let string = ""
+    string += `<option value="${governor.id}--${governor.colonyId}">`;
+    
+    if (governor.id === transientState.selectedGovernorId) {
+      string += "selected";
+    }
+    string += `${governor.name}</option>`;
+    
+    return string;
+  });
+  
+  html += arrayOfOptions.join("");
+  html += "</select>";
   
   return html
 }
-// create function to match colonyId and governor Id
+document.addEventListener(
+  "change",
+  (event) => {
+    if (event.target.id === "governorSelect") {
+      const [governorId, colonyId] = event.target.value.split("--");
+      setGovernor(parseInt(governorId))
+      setColony(parseInt(colonyId))
+      console.log(getTransientState())
+    }
+  }
+  )
 // populate colony name text based on selected governor
-
-// export const Governors = () => {
-//   let transientState = getTransientState();
-//   let html = "";
-
-//   return html;
-// };

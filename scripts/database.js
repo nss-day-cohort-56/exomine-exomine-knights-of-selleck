@@ -68,6 +68,11 @@ export const getFacilities = () => {
 export const getGovernors = () => {
     return database.governors.map(governor => ({...governor}))
 }
+
+export const getActiveGovernors = () => {
+    return database.governors.filter(governor => (governor.active))
+}
+
 export const getColonies = () => {
     return database.colonies.map(colony => ({...colony}))
 }
@@ -92,6 +97,9 @@ export const setMineral = (mineralId) => {
     document.dispatchEvent( new CustomEvent("stateChanged") )
 }
 
+export const getTransientState = () => {
+    return { ...database.transientState };
+  };
 export const purchaseMineral = () => {
 
         // Broadcast custom event to entire documement so that the

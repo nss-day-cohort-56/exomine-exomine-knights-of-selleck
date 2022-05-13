@@ -1,3 +1,5 @@
+import { Governors } from "./Governors.js"
+
 export const Exomine = () => {
   return `
     <div class="container">
@@ -7,7 +9,7 @@ export const Exomine = () => {
         <div class="col-5">
           <div class="row">
             <div class="col-12">
-              <p>Choose Governor Placeholder</p>
+              <p>${Governors()}</p>
             </div>
           </div><!-- row -->
 

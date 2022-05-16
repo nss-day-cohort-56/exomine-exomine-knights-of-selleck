@@ -1,4 +1,4 @@
-import { getTransientState, getFacilities } from "./database.js";
+import { getTransientState, getFacilities, setFacility } from "./database.js";
 
 export const Facilities = () => {
   let transientState = getTransientState();
@@ -12,7 +12,7 @@ export const Facilities = () => {
 
   const arrayOfOptions = facilities.map((facility) => {
     let string = "";
-    string += `<option value="${facility.id}--${facility.name}">`;
+    string += `<option value="${facility.id}}">`;
 
     if (facility.id === transientState.selectedfacilityId) {
       string += "selected";
@@ -27,3 +27,11 @@ export const Facilities = () => {
 
   return html;
 };
+
+document.addEventListener("change", (event) => {
+  if (event.target.id === "facilitySelect") {
+    const facilityId = event.target.value;
+    setFacility(parseInt(facilityId));
+    console.log(getTransientState());
+  }
+});

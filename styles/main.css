@@ -24,3 +24,7 @@ h6 {
   font-family: "Patua One", serif;
   letter-spacing: 2px;
 }
+
+.mt-0 {
+  margin-top: 0;
+}

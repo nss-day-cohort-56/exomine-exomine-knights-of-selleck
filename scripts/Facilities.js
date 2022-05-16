@@ -12,9 +12,9 @@ export const Facilities = () => {
 
   const arrayOfOptions = facilities.map((facility) => {
     let string = "";
-    string += `<option value="${facility.id}}"`;
+    string += `<option value="${facility.id}"`;
 
-    if (facility.id === transientState.selectedfacilityId) {
+    if (facility.id === transientState.selectedFacilityId) {
       string += " selected";
     }
     string += `>${facility.name}</option>`;

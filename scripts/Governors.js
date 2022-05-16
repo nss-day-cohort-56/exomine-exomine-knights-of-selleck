@@ -3,10 +3,6 @@ import { setGovernor, getActiveGovernors, getTransientState, setColony} from "./
 export const Governors = () => {
   let transientState = getTransientState();
   let governors = getActiveGovernors();
-  let selectedGovernorId =
-    typeof transientState.selectedGovernorId !== "undefined" && transientState.selectedGovernorId
-      ? transientState.selectedGovernorId
-      : 0;
   let html = "";
 
   html += '<label for="governorSelect">Choose Governor: </label>';
@@ -17,7 +13,7 @@ export const Governors = () => {
     let string = "";
     string += `<option value="${governor.id}--${governor.colonyId}"`;
 
-    if (governor.id === selectedGovernorId) {
+    if (governor.id === transientState.selectedGovernorId) {
       string += " selected";
     }
     string += `>${governor.name}</option>`;

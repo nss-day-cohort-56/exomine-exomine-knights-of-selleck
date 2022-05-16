@@ -1,4 +1,4 @@
-import { setGovernor, getActiveGovernors, getTransientState, setColony } from "./database.js";
+import { setGovernor, getActiveGovernors, getTransientState, setColony} from "./database.js";
 
 export const Governors = () => {
   let transientState = getTransientState();
@@ -38,3 +38,4 @@ document.addEventListener("change", (event) => {
     setColony(parseInt(colonyId));
   }
 });
+

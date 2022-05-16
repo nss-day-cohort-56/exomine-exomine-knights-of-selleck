@@ -114,6 +114,10 @@ export const getFacilityById = (id) => {
   return database.facilities.find((facility) => facility.id === id);
 };
 
+export const getColonyById = (id) => {
+  return database.colonies.find((colony) => colony.id === id);
+}
+
 export const setFacility = (facilityId) => {
   database.transientState.selectedFacilityId = facilityId;
   document.dispatchEvent(new CustomEvent("stateChanged"));

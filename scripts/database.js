@@ -80,6 +80,10 @@ export const getColonies = () => {
   return database.colonies.map((colony) => ({ ...colony }));
 };
 
+export const getColonyById = (id) => {
+  return database.colonies.find((colony) => colony.id === id);
+};
+
 export const setColony = (colonyId) => {
   database.transientState.selectedColonyId = colonyId;
   document.dispatchEvent(new CustomEvent("stateChanged"));
@@ -95,6 +99,21 @@ export const getMinerals = () => {
 export const setMineral = (mineralId) => {
   database.transientState.selectedMineralId = mineralId;
   document.dispatchEvent(new CustomEvent("stateChanged"));
+};
+
+/*
+ * Facility Minerals
+ */
+export const getFacilityMinerals = (facilityId) => {
+  // Filter the array of facility minerals on the facilityId foreign key
+  return database.facilityMinerals.filter((facilityMineral) => facilityMineral.facilityId === facilityId);
+};
+
+/*
+ * Colony Minerals
+ */
+export const getColonyMinerals = (colonyId) => {
+  return database.colonyMinerals.filter((mineral) => mineral.colonyId === colonyId);
 };
 
 export const purchaseMineral = () => {
@@ -113,10 +132,6 @@ export const getFacilities = () => {
 export const getFacilityById = (id) => {
   return database.facilities.find((facility) => facility.id === id);
 };
-
-export const getColonyById = (id) => {
-  return database.colonies.find((colony) => colony.id === id);
-}
 
 export const setFacility = (facilityId) => {
   database.transientState.selectedFacilityId = facilityId;

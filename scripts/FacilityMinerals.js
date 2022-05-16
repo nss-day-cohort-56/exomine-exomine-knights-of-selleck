@@ -1,4 +1,4 @@
-import { getTransientState, getFacilityById } from "./database.js";
+import { getTransientState, getFacilityById, getFacilityMinerals } from "./database.js";
 
 export const FacilityMinerals = () => {
   let transientState = getTransientState();
@@ -10,6 +10,9 @@ export const FacilityMinerals = () => {
 
   if (facilityName) {
     titleString += ` for ${facilityName}`;
+    let facilityMinerals = getFacilityMinerals(transientState.selectedFacilityId);
+
+    // console.log("facilityMinerals", facilityMinerals);
   }
 
   html += `<h3>${titleString}</h3>`;

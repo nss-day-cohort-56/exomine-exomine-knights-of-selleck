@@ -2,7 +2,6 @@
 
 const database = {
     transientState: {
-
     },
 
     governors: [
@@ -68,6 +67,11 @@ export const getFacilities = () => {
 export const getGovernors = () => {
     return database.governors.map(governor => ({...governor}))
 }
+
+export const getActiveGovernors = () => {
+    return database.governors.filter(governor => (governor.active))
+}
+
 export const getColonies = () => {
     return database.colonies.map(colony => ({...colony}))
 }
@@ -76,22 +80,25 @@ export const getMinerals = () => {
 }
 
 export const setFacility = (facilityId) => {
-    database.transientState.selectedFacility = facilityId
+    database.transientState.selectedFacilityId = facilityId
     document.dispatchEvent( new CustomEvent("stateChanged") )
 }
 export const setGovernor = (governorId) => {
-    database.transientState.selectedGovernor = governorId
+    database.transientState.selectedGovernorId = governorId
     document.dispatchEvent( new CustomEvent("stateChanged") )
 }
 export const setColony = (colonyId) => {
-    database.transientState.selectedColony = colonyId
+    database.transientState.selectedColonyId = colonyId
     document.dispatchEvent( new CustomEvent("stateChanged") )
 }
 export const setMineral = (mineralId) => {
-    database.transientState.selectedMineral = mineralId
+    database.transientState.selectedMineralId = mineralId
     document.dispatchEvent( new CustomEvent("stateChanged") )
 }
 
+export const getTransientState = () => {
+    return { ...database.transientState };
+  };
 export const purchaseMineral = () => {
 
         // Broadcast custom event to entire documement so that the

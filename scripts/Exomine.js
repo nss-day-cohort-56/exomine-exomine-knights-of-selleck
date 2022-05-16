@@ -23,7 +23,7 @@ export const Exomine = () => {
         </div><!-- col -->
 
         <div class="col-7">
-          <h3>Colony Minerals</h3>
+          <h3 class="mt-0">Colony Minerals</h3>
         </div>
       </div><!-- row -->
       
@@ -34,7 +34,7 @@ export const Exomine = () => {
         </div>
 
         <div class="col-3">
-          <h4>Cart</h4>
+          <h3>Cart</h3>
         </div>
       </div><!-- row -->
     </div><!-- container -->

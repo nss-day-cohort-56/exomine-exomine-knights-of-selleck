@@ -12,12 +12,12 @@ export const Facilities = () => {
 
   const arrayOfOptions = facilities.map((facility) => {
     let string = "";
-    string += `<option value="${facility.id}}">`;
+    string += `<option value="${facility.id}}"`;
 
     if (facility.id === transientState.selectedfacilityId) {
-      string += "selected";
+      string += " selected";
     }
-    string += `${facility.name}</option>`;
+    string += `>${facility.name}</option>`;
 
     return string;
   });
@@ -32,6 +32,5 @@ document.addEventListener("change", (event) => {
   if (event.target.id === "facilitySelect") {
     const facilityId = event.target.value;
     setFacility(parseInt(facilityId));
-    console.log(getTransientState());
   }
 });

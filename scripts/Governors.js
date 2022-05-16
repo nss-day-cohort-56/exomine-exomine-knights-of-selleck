@@ -31,6 +31,7 @@ export const Governors = () => {
 
   return html;
 };
+
 document.addEventListener("change", (event) => {
   if (event.target.id === "governorSelect") {
     const [governorId, colonyId] = event.target.value.split("--");

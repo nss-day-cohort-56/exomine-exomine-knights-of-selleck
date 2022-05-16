@@ -1,5 +1,6 @@
-import { Facilities } from "./Facilities.js";
 import { Governors } from "./Governors.js";
+import { Facilities } from "./Facilities.js";
+import { FacilityMinerals } from "./FacilityMinerals.js";
 
 export const Exomine = () => {
   return `
@@ -29,7 +30,7 @@ export const Exomine = () => {
 
       <div class="row">
         <div class="col-9">
-          <h4>Facility Minerals</h4>
+          ${FacilityMinerals()}
         </div>
 
         <div class="col-3">

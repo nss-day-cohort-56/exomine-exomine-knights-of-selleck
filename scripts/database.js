@@ -1,5 +1,3 @@
-// fill database with governor, mineral, facility, and colony data
-
 const database = {
   transientState: {},
 

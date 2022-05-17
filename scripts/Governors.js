@@ -5,9 +5,9 @@ export const Governors = () => {
   let governors = getActiveGovernors();
   let html = "";
 
-  html += '<label for="governorSelect">Governor: </label>';
+  html += '<label for="governorSelect">Choose a governor: </label>';
   html += '<select id="governorSelect">';
-  html += '<option value="0">Choose a governor...</option>';
+  html += '<option value="0">Governors... </option>';
 
   const arrayOfOptions = governors.map((governor) => {
     let string = "";

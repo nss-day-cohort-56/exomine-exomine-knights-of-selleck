@@ -1,13 +1,13 @@
-import { setGovernor, getActiveGovernors, getTransientState, setColony} from "./database.js";
+import { setGovernor, getActiveGovernors, getTransientState, setColony } from "./database.js";
 
 export const Governors = () => {
   let transientState = getTransientState();
   let governors = getActiveGovernors();
   let html = "";
 
-  html += '<label for="governorSelect">Choose Governor: </label>';
+  html += '<label for="governorSelect">Choose a governor: </label>';
   html += '<select id="governorSelect">';
-  html += '<option value="0">Select a Governor</option>';
+  html += '<option value="0">Governors... </option>';
 
   const arrayOfOptions = governors.map((governor) => {
     let string = "";
@@ -34,4 +34,3 @@ document.addEventListener("change", (event) => {
     setColony(parseInt(colonyId));
   }
 });
-

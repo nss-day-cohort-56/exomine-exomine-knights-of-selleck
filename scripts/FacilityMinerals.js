@@ -5,17 +5,18 @@ export const FacilityMinerals = () => {
   let html = "";
 
   let titleString = "Facility Minerals";
-  let facilityName =
-    transientState.selectedFacilityId !== undefined ? `${getFacilityById(transientState.selectedFacilityId).name}` : 0;
+  let listItemsString = "";
 
-  if (facilityName) {
-    titleString += ` for ${facilityName}`;
+  if (transientState.selectedFacilityId !== undefined) {
+    // if facility has been selected from dropdown, display in title
+    titleString += ` for ${getFacilityById(transientState.selectedFacilityId).name}`;
+
+    // TODO: use facilityMinerals to create radio button list elements
     let facilityMinerals = getFacilityMinerals(transientState.selectedFacilityId);
-
-    // console.log("facilityMinerals", facilityMinerals);
   }
 
-  html += `<h3>${titleString}</h3>`;
+  html += `<h3 class="text-center">${titleString}</h3>`;
+  html += `${listItemsString}`;
 
   return html;
 };

@@ -96,6 +96,10 @@ export const getMinerals = () => {
   return database.minerals.map((mineral) => ({ ...mineral }));
 };
 
+export const getMineralById = (id) => {
+  return database.minerals.find((mineral) => mineral.id === id);
+};
+
 export const setMineral = (mineralId) => {
   database.transientState.selectedMineralId = mineralId;
   document.dispatchEvent(new CustomEvent("stateChanged"));

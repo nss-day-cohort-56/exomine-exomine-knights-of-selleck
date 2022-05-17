@@ -1,4 +1,10 @@
-import { getTransientState, getColonyById, getColonyMinerals, getMineralById } from "./database.js";
+import {
+  getTransientState,
+  getColonyById,
+  getColonyMinerals,
+  getMineralById,
+  QuantityMineralsTextBuilder
+} from "./database.js";
 
 export const ColonyMinerals = () => {
   let transientState = getTransientState();
@@ -15,11 +21,13 @@ export const ColonyMinerals = () => {
     listItemsString += "<ul class='text-center no-bullets'>";
 
     const listItemsArray = colonyMinerals.map((colonyMineral) => {
+      let mineral = getMineralById(colonyMineral.mineralId);
       return `
         <li class="mt-0 colony-mineral">
-            ${colonyMineral.quantity} tons of ${getMineralById(colonyMineral.mineralId).name}
+            ${QuantityMineralsTextBuilder(colonyMineral.quantity, mineral.name)}
         </li>`;
     });
+
     listItemsString += listItemsArray.join("");
 
     listItemsString += "</ul>";

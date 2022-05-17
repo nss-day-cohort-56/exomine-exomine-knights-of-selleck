@@ -1,4 +1,11 @@
-import { getTransientState, getFacilityById, getFacilityMinerals, getMineralById, setFacilityMineral } from "./database.js";
+import {
+  getTransientState,
+  getFacilityById,
+  getFacilityMinerals,
+  getMineralById,
+  setFacilityMineral,
+  QuantityMineralsTextBuilder
+} from "./database.js";
 
 export const FacilityMinerals = () => {
   let transientState = getTransientState();
@@ -8,17 +15,19 @@ export const FacilityMinerals = () => {
   let listItemsString = "";
 
   if (transientState.selectedFacilityId !== undefined) {
+    let facility = getFacilityById(transientState.selectedFacilityId);
     // if facility has been selected from dropdown, display in title
-    titleString += ` for ${getFacilityById(transientState.selectedFacilityId).name}`;
+    titleString += ` for ${facility.name}`;
 
-    // TODO: use facilityMinerals to create radio button list elements
     let facilityMinerals = getFacilityMinerals(transientState.selectedFacilityId);
     listItemsString += "<ul class='text-center no-bullets'>";
 
     const listItemsArray = facilityMinerals.map((facilityMineral) => {
+      let mineral = getMineralById(facilityMineral.mineralId);
       return `
         <li class="mt-0 facility-mineral">
-          <input type="radio" name="facilityMineralSelect" value="${facilityMineral.id}"/> ${facilityMineral.quantity} tons of ${getMineralById(facilityMineral.mineralId).name}
+          <input type="radio" name="facilityMineralSelect" value="${facilityMineral.id}"/> 
+          ${QuantityMineralsTextBuilder(facilityMineral.quantity, mineral.name)}
         </li>`;
     });
     listItemsString += listItemsArray.join("");

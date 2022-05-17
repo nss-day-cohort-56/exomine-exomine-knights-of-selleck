@@ -157,3 +157,16 @@ export const setFacility = (facilityId) => {
 export const getTransientState = () => {
   return { ...database.transientState };
 };
+
+/* ------ Helper Functions ------ */ //TODO: move to better file?
+export const QuantityMineralsTextBuilder = (quantity, mineral, colonyName = null) => {
+  let string = "";
+  const weight = quantity > 1 ? "tons" : "ton";
+  string += ` ${quantity} ${weight} of ${mineral}`;
+
+  if (colonyName !== null) {
+    string += ` from ${colonyName}`;
+  }
+
+  return string;
+};

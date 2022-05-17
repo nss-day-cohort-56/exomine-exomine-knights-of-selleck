@@ -15,7 +15,7 @@ export const FacilityMinerals = () => {
     // console.log("facilityMinerals", facilityMinerals);
   }
 
-  html += `<h3>${titleString}</h3>`;
+  html += `<h3 class="text-center">${titleString}</h3>`;
 
   return html;
 };

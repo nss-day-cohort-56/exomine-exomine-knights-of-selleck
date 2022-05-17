@@ -6,9 +6,9 @@ import { ColonyMinerals } from "./ColonyMinerals.js";
 export const Exomine = () => {
   return `
     <div class="container">
-      <h2>Solar System Mining Marketplace</h2>
+      <h2 class="text-end">Solar System Mining Marketplace</h2>
 
-      <div class="row">
+      <div class="row flex-grid">
         <div class="col-5">
           <div class="row">
             <div class="col-12">
@@ -35,7 +35,7 @@ export const Exomine = () => {
         </div>
 
         <div class="col-3">
-          <h3>Cart</h3>
+          <h3 class="text-center">Cart</h3>
         </div>
       </div><!-- row -->
     </div><!-- container -->

@@ -6,9 +6,9 @@ export const Facilities = () => {
 
   let html = "";
 
-  html += '<label for="facilitySelect">Choose facility: </label>';
+  html += '<label for="facilitySelect">Facility: </label>';
   html += '<select id="facilitySelect">';
-  html += '<option value="0">Select a facility</option>';
+  html += '<option value="0">Choose a facility...</option>';
 
   const arrayOfOptions = facilities.map((facility) => {
     let string = "";

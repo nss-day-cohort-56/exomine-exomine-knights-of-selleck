@@ -25,6 +25,30 @@ h6 {
   letter-spacing: 2px;
 }
 
+.flex-grid {
+  display: flex;
+}
+
 .mt-0 {
   margin-top: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-end {
+  text-align: end;
+}
+
+ul.no-bullets {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.no-bullets > li {
+  margin: 0 0 0.5rem !important;
 }

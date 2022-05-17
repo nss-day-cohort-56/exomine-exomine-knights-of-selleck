@@ -134,7 +134,7 @@ export const getColonyMinerals = (colonyId) => {
 
 export const purchaseMineral = (facilityMineral) => {
   // getColonyMinerals(colony.id)
-  database.facilityMinerals[facilityMineral].quantity -= 1;
+  database.facilityMinerals[facilityMineral - 1].quantity -= 1;
   document.dispatchEvent(new CustomEvent("stateChanged"));
 };
 
@@ -170,3 +170,15 @@ export const QuantityMineralsTextBuilder = (quantity, mineral, colonyName = null
 
   return string;
 };
+
+/* ------ PURCHASING Event Listener ------ */ //TODO: move to better file?
+
+document.addEventListener(
+  "click",
+  (event) => {
+      if (event.target.id === "orderButton") {
+          const transientState = getTransientState()
+          purchaseMineral(transientState.selectedFacilityMineralId)
+      }
+  }
+)

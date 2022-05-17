@@ -7,7 +7,7 @@ export const Facilities = () => {
   let html = "";
 
   html += '<label for="facilitySelect">Choose facility: </label>';
-  html += '<select id="facilitySelect">';
+  transientState.selectedGovernorId ? html += '<select id="facilitySelect">' : html += '<select disabled id="facilitySelect">'
   html += '<option value="0">Select a facility</option>';
 
   const arrayOfOptions = facilities.map((facility) => {

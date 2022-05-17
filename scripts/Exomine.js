@@ -36,6 +36,7 @@ export const Exomine = () => {
 
         <div class="col-3">
           <h3 class="text-center">Cart</h3>
+          <button id ="orderButton">Purchase</button>
         </div>
       </div><!-- row -->
     </div><!-- container -->

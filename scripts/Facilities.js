@@ -18,6 +18,8 @@ export const Facilities = () => {
 
     if (facility.id === transientState.selectedFacilityId) {
       string += " selected";
+    } else if (facility.active === false) {
+      string += "disabled"
     }
     string += `>${facility.name}</option>`;
 

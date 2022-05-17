@@ -17,7 +17,7 @@ export const ColonyMinerals = () => {
     const listItemsArray = colonyMinerals.map((colonyMineral) => {
       return `
         <li class="mt-0 colony-mineral">
-            ${getMineralById(colonyMineral.mineralId).name}
+            ${colonyMineral.quantity} tons of ${getMineralById(colonyMineral.mineralId).name}
         </li>`;
     });
     listItemsString += listItemsArray.join("");

@@ -119,6 +119,12 @@ export const getFacilityMinerals = (facilityId) => {
   return database.facilityMinerals.filter((facilityMineral) => facilityMineral.facilityId === facilityId);
 };
 
+export const setFacilityMineral = (facilityMineralId) => {
+  database.transientState.selectedFacilityMineralId = facilityMineralId;
+  // removed stateChanged because this will re-render html. Only need to do that when purchase button is clicked.
+  // document.dispatchEvent(new CustomEvent("stateChanged"));
+};
+
 /*
  * Colony Minerals
  */

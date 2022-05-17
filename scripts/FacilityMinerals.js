@@ -1,4 +1,4 @@
-import { getTransientState, getFacilityById, getFacilityMinerals, getMineralById } from "./database.js";
+import { getTransientState, getFacilityById, getFacilityMinerals, getMineralById, setFacilityMineral } from "./database.js";
 
 export const FacilityMinerals = () => {
   let transientState = getTransientState();
@@ -18,7 +18,7 @@ export const FacilityMinerals = () => {
     const listItemsArray = facilityMinerals.map((facilityMineral) => {
       return `
         <li class="mt-0 facility-mineral">
-          <input type="radio" name="mineralRadio" value="${facilityMineral.id}" /> ${facilityMineral.quantity} tons of ${getMineralById(facilityMineral.mineralId).name}
+          <input type="radio" name="facilityMineralSelect" value="${facilityMineral.id}"/> ${facilityMineral.quantity} tons of ${getMineralById(facilityMineral.mineralId).name}
         </li>`;
     });
     listItemsString += listItemsArray.join("");
@@ -31,3 +31,10 @@ export const FacilityMinerals = () => {
 
   return html;
 };
+
+document.addEventListener("change", (event) => {
+  if (event.target.name === "facilityMineralSelect") {
+    const facilityMineralId = event.target.value;
+    setFacilityMineral(parseInt(facilityMineralId));
+  }
+});

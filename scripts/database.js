@@ -132,9 +132,9 @@ export const getColonyMinerals = (colonyId) => {
   return database.colonyMinerals.filter((mineral) => mineral.colonyId === colonyId);
 };
 
-export const purchaseMineral = () => {
-  // Broadcast custom event to entire documement so that the
-  // application can re-render and update state
+export const purchaseMineral = (facilityMineral) => {
+  // getColonyMinerals(colony.id)
+  database.facilityMinerals[facilityMineral].quantity -= 1;
   document.dispatchEvent(new CustomEvent("stateChanged"));
 };
 

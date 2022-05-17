@@ -34,16 +34,22 @@ const database = {
   ],
 
   facilityMinerals: [
-    { id: 1, facilityId: 1, mineralId: 1, quantity: 2 },
-    { id: 2, facilityId: 1, mineralId: 1, quantity: 1 },
-    { id: 3, facilityId: 3, mineralId: 2, quantity: 3 },
-    { id: 4, facilityId: 3, mineralId: 2, quantity: 3 },
-    { id: 5, facilityId: 3, mineralId: 3, quantity: 1 },
-    { id: 6, facilityId: 2, mineralId: 3, quantity: 7 },
-    { id: 7, facilityId: 2, mineralId: 3, quantity: 3 },
-    { id: 8, facilityId: 2, mineralId: 4, quantity: 5 },
-    { id: 9, facilityId: 2, mineralId: 4, quantity: 5 },
-    { id: 10, facilityId: 2, mineralId: 4, quantity: 5 }
+    { id: 1, facilityId: 1, mineralId: 1, quantity: 90 },
+    { id: 2, facilityId: 1, mineralId: 2, quantity: 150 },
+    { id: 3, facilityId: 3, mineralId: 2, quantity: 221 },
+    { id: 4, facilityId: 3, mineralId: 4, quantity: 5000 },
+    { id: 5, facilityId: 3, mineralId: 3, quantity: 100 },
+    { id: 6, facilityId: 2, mineralId: 1, quantity: 120 },
+    { id: 7, facilityId: 2, mineralId: 3, quantity: 150 },
+    { id: 8, facilityId: 2, mineralId: 4, quantity: 2000 },
+    { id: 9, facilityId: 2, mineralId: 5, quantity: 2300 },
+    { id: 10, facilityId: 4, mineralId: 1, quantity: 1500 },
+    { id: 11, facilityId: 4, mineralId: 3, quantity: 2000 },
+    { id: 12, facilityId: 4, mineralId: 5, quantity: 165 },
+    { id: 13, facilityId: 5, mineralId: 2, quantity: 120 },
+    { id: 14, facilityId: 5, mineralId: 4, quantity: 5195 },
+    { id: 15, facilityId: 5, mineralId: 5, quantity: 200 },
+    { id: 16, facilityId: 5, mineralId: 6, quantity: 1502 }
   ],
 
   colonyMinerals: [

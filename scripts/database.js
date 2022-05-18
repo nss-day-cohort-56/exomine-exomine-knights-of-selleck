@@ -134,19 +134,21 @@ export const getColonyMinerals = (colonyId) => {
 
 export const purchaseMineral = (facilityMineralId, colonyId) => {
   // Get all minerals for that colony
-  const colonyMinerals = getColonyMinerals(colonyId)
+  const colonyMinerals = getColonyMinerals(colonyId);
   // Set variable for selected Facility Mineral, subtract 1 from quantity
-  const selectedFacilityMineral = database.facilityMinerals[facilityMineralId - 1]
+  const selectedFacilityMineral = database.facilityMinerals[facilityMineralId - 1];
   selectedFacilityMineral.quantity -= 1;
   // Filter to check if the selected mineral already exists in colonyMinerals
-  const colonyMineral = colonyMinerals.filter((mineral) => mineral.mineralId === selectedFacilityMineral.mineralId)
+  const colonyMineral = colonyMinerals.filter((mineral) => mineral.mineralId === selectedFacilityMineral.mineralId);
   // If it does exist, it will be in the colonyMineral array. Simply increase quantity by 1. If not, push new colonyMineral object.
-  colonyMineral.length > 0 ? database.colonyMinerals[colonyMineral[0].id - 1].quantity += 1 : database.colonyMinerals.push({
-    id: database.colonyMinerals.length + 1,
-    colonyId: colonyId,
-    mineralId: selectedFacilityMineral.mineralId,
-    quantity: 1
-  })
+  colonyMineral.length > 0
+    ? (database.colonyMinerals[colonyMineral[0].id - 1].quantity += 1)
+    : database.colonyMinerals.push({
+        id: database.colonyMinerals.length + 1,
+        colonyId: colonyId,
+        mineralId: selectedFacilityMineral.mineralId,
+        quantity: 1
+      });
   document.dispatchEvent(new CustomEvent("stateChanged"));
 };
 
@@ -183,14 +185,16 @@ export const QuantityMineralsTextBuilder = (quantity, mineral, colonyName = null
   return string;
 };
 
+export const resetElementById = (htmlTagIdString) => {
+  document.getElementById(htmlTagIdString).innerHTML = "";
+};
+
 /* ------ PURCHASING Event Listener ------ */ //TODO: move to better file?
 
-document.addEventListener(
-  "click",
-  (event) => {
-      if (event.target.id === "orderButton") {
-          const transientState = getTransientState()
-          purchaseMineral(transientState.selectedFacilityMineralId, transientState.selectedColonyId)
-      }
+document.addEventListener("click", (event) => {
+  if (event.target.id === "orderButton") {
+    const transientState = getTransientState();
+    purchaseMineral(transientState.selectedFacilityMineralId, transientState.selectedColonyId);
+    resetElementById("spaceCart");
   }
-)
+});

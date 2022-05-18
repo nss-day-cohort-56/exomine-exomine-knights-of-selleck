@@ -2,12 +2,12 @@ const database = {
   transientState: {},
 
   governors: [
-    { id: 1, name: "Ned", active: true, colonyId: 1 },
-    { id: 2, name: "Joe", active: true, colonyId: 1 },
-    { id: 3, name: "Fred", active: false, colonyId: 2 },
-    { id: 4, name: "Jane ", active: true, colonyId: 2 },
-    { id: 5, name: "Jill", active: true, colonyId: 3 },
-    { id: 5, name: "Kendal", active: true, colonyId: 3 }
+    { id: 1, name: "William Shatner", active: true, colonyId: 1 },
+    { id: 2, name: "Chrisjen Avasarala ", active: true, colonyId: 1 },
+    { id: 3, name: "John Carter", active: true, colonyId: 2 },
+    { id: 4, name: "Elon Musk", active: false, colonyId: 2 },
+    { id: 5, name: "Spaceman Spiff", active: true, colonyId: 3 },
+    { id: 5, name: "Buzz Lightyear", active: true, colonyId: 3 }
   ],
 
   colonies: [
@@ -26,7 +26,7 @@ const database = {
   ],
 
   facilities: [
-    { id: 1, name: "Altoid", active: true },
+    { id: 1, name: "Altoid", active: false },
     { id: 2, name: "Crema", active: true },
     { id: 3, name: "Target", active: true },
     { id: 4, name: "Roast", active: false },
@@ -132,28 +132,23 @@ export const getColonyMinerals = (colonyId) => {
   return database.colonyMinerals.filter((mineral) => mineral.colonyId === colonyId);
 };
 
-export const purchaseMineral = (facilityMineral) => {
-  const transientState = getTransientState()
-  const colonyMinerals = getColonyMinerals(transientState.selectedColonyId)
-  // database.colonyMinerals[database.facilityMinerals[facilityMineral].id]
-  database.facilityMinerals[facilityMineral - 1].quantity -= 1;
+export const purchaseMineral = (facilityMineralId, colonyId) => {
+  // Get all minerals for that colony
+  const colonyMinerals = getColonyMinerals(colonyId)
+  // Set variable for selected Facility Mineral, subtract 1 from quantity
+  const selectedFacilityMineral = database.facilityMinerals[facilityMineralId - 1]
+  selectedFacilityMineral.quantity -= 1;
+  // Filter to check if the selected mineral already exists in colonyMinerals
+  const colonyMineral = colonyMinerals.filter((mineral) => mineral.mineralId === selectedFacilityMineral.mineralId)
+  // If it does exist, it will be in the colonyMineral array. Simply increase quantity by 1. If not, push new colonyMineral object.
+  colonyMineral.length > 0 ? database.colonyMinerals[colonyMineral[0].id - 1].quantity += 1 : database.colonyMinerals.push({
+    id: database.colonyMinerals.length + 1,
+    colonyId: colonyId,
+    mineralId: selectedFacilityMineral.mineralId,
+    quantity: 1
+  })
   document.dispatchEvent(new CustomEvent("stateChanged"));
 };
-
-export const addCustomOrder = () => {
-  const newOrder = {...database.orderBuilder}
-
-  const lastIndex = database.customOrders.length - 1
-  newOrder.id = database.customOrders[lastIndex].id + 1
-
-  newOrder.timestamp = Date.now()
-
-  database.customOrders.push(newOrder)
-
-  database.orderBuilder = {}
-
-  document.dispatchEvent(new CustomEvent("stateChanged"))
-}
 
 /*
  * Facilities
@@ -195,7 +190,7 @@ document.addEventListener(
   (event) => {
       if (event.target.id === "orderButton") {
           const transientState = getTransientState()
-          purchaseMineral(transientState.selectedFacilityMineralId)
+          purchaseMineral(transientState.selectedFacilityMineralId, transientState.selectedColonyId)
       }
   }
 )

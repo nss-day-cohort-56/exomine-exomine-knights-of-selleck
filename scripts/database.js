@@ -133,10 +133,27 @@ export const getColonyMinerals = (colonyId) => {
 };
 
 export const purchaseMineral = (facilityMineral) => {
-  // getColonyMinerals(colony.id)
+  const transientState = getTransientState()
+  const colonyMinerals = getColonyMinerals(transientState.selectedColonyId)
+  // database.colonyMinerals[database.facilityMinerals[facilityMineral].id]
   database.facilityMinerals[facilityMineral - 1].quantity -= 1;
   document.dispatchEvent(new CustomEvent("stateChanged"));
 };
+
+export const addCustomOrder = () => {
+  const newOrder = {...database.orderBuilder}
+
+  const lastIndex = database.customOrders.length - 1
+  newOrder.id = database.customOrders[lastIndex].id + 1
+
+  newOrder.timestamp = Date.now()
+
+  database.customOrders.push(newOrder)
+
+  database.orderBuilder = {}
+
+  document.dispatchEvent(new CustomEvent("stateChanged"))
+}
 
 /*
  * Facilities

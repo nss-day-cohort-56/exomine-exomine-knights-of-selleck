@@ -1,6 +1,8 @@
 const database = {
   transientState: {},
 
+  orders: [],
+
   governors: [
     { id: 1, name: "William Shatner", active: true, colonyId: 1 },
     { id: 2, name: "Chrisjen Avasarala ", active: true, colonyId: 1 },
@@ -119,10 +121,13 @@ export const getFacilityMinerals = (facilityId) => {
   return database.facilityMinerals.filter((facilityMineral) => facilityMineral.facilityId === facilityId);
 };
 
+export const getFacilityMineralById = (id) => {
+  return database.facilityMinerals.find((facilityMineral) => facilityMineral.id === id);
+};
+
 export const setFacilityMineral = (facilityMineralId) => {
   database.transientState.selectedFacilityMineralId = facilityMineralId;
-  // removed stateChanged because this will re-render html. Only need to do that when purchase button is clicked.
-  // document.dispatchEvent(new CustomEvent("stateChanged"));
+  // document.dispatchEvent(new CustomEvent("cartChanged"));
 };
 
 /*
@@ -153,6 +158,30 @@ export const purchaseMineral = (facilityMineralId, colonyId) => {
 };
 
 /*
+ * Orders
+ */
+export const setOrder = (facilityMineral) => {
+  const orders = database.orders;
+  const filteredOrder = orders.filter((order) => order.facilityId === facilityMineral.facilityId);
+  if (filteredOrder.length > 0) {
+      database.orders[filteredOrder[0].id - 1].facilityMineralId = facilityMineral.id
+      database.orders[filteredOrder[0].id - 1].mineralName = getMineralById(facilityMineral.mineralId).name
+  } else {
+      database.orders.push({
+      id: database.orders.length + 1,
+      facilityId: facilityMineral.facilityId,
+      facilityMineralId: facilityMineral.id,
+      mineralName: getMineralById(facilityMineral.mineralId).name
+    })
+  }
+}
+
+export const getOrders = () => {
+  return database.orders.map((order) => ({ ...order }));
+};
+
+
+/*
  * Facilities
  */
 export const getFacilities = () => {
@@ -178,7 +207,7 @@ export const QuantityMineralsTextBuilder = (quantity, mineral, colonyName = null
   const weight = quantity > 1 ? "tons" : "ton";
   string += ` ${quantity} ${weight} of ${mineral}`;
 
-  if (colonyName !== null) {
+  if (colonyName) {
     string += ` from ${colonyName}`;
   }
 
@@ -193,8 +222,13 @@ export const resetElementById = (htmlTagIdString) => {
 
 document.addEventListener("click", (event) => {
   if (event.target.id === "orderButton") {
-    const transientState = getTransientState();
-    purchaseMineral(transientState.selectedFacilityMineralId, transientState.selectedColonyId);
+    const orders = getOrders();
+    
+    orders.map(order => {
+      purchaseMineral(order.facilityMineralId, database.transientState.selectedColonyId);
+    }) 
+        
+    database.orders = []
     resetElementById("spaceCart");
   }
 });

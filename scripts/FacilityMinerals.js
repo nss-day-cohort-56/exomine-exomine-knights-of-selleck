@@ -4,7 +4,9 @@ import {
   getFacilityMinerals,
   getMineralById,
   setFacilityMineral,
-  QuantityMineralsTextBuilder
+  QuantityMineralsTextBuilder,
+  setOrder,
+  getFacilityMineralById
 } from "./database.js";
 
 export const FacilityMinerals = () => {
@@ -45,5 +47,8 @@ document.addEventListener("change", (event) => {
   if (event.target.name === "facilityMineralSelect") {
     const facilityMineralId = event.target.value;
     setFacilityMineral(parseInt(facilityMineralId));
+    const facilityMineral = getFacilityMineralById(parseInt(facilityMineralId))
+    setOrder(facilityMineral)
+    document.dispatchEvent(new CustomEvent("cartChanged"));
   }
 });

@@ -47,6 +47,8 @@ document.addEventListener("change", (event) => {
   if (event.target.name === "facilityMineralSelect") {
     const facilityMineralId = event.target.value;
     setFacilityMineral(parseInt(facilityMineralId));
-    setOrder(getFacilityMineralById(facilityMineralId))
+    const facilityMineral = getFacilityMineralById(parseInt(facilityMineralId))
+    setOrder(facilityMineral)
+    document.dispatchEvent(new CustomEvent("cartChanged"));
   }
 });

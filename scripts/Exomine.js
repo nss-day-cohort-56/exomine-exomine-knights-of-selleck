@@ -2,6 +2,7 @@ import { Governors } from "./Governors.js";
 import { Facilities } from "./Facilities.js";
 import { FacilityMinerals } from "./FacilityMinerals.js";
 import { ColonyMinerals } from "./ColonyMinerals.js";
+import { Orders } from "./Cart.js";
 
 export const Exomine = () => {
   return `
@@ -36,7 +37,7 @@ export const Exomine = () => {
 
         <div class="col-3">
           <h3 class="text-center">Cart</h3>
-          <div id="spaceCart"></div>
+          <div id="spaceCart">${Orders()}</div>
           <button id ="orderButton">Purchase</button>
         </div>
       </div><!-- row -->

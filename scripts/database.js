@@ -127,8 +127,7 @@ export const getFacilityMineralById = (id) => {
 
 export const setFacilityMineral = (facilityMineralId) => {
   database.transientState.selectedFacilityMineralId = facilityMineralId;
-  // removed stateChanged because this will re-render html. Only need to do that when purchase button is clicked.
-  // document.dispatchEvent(new CustomEvent("stateChanged"));
+  // document.dispatchEvent(new CustomEvent("cartChanged"));
 };
 
 /*
@@ -158,18 +157,28 @@ export const purchaseMineral = (facilityMineralId, colonyId) => {
   document.dispatchEvent(new CustomEvent("stateChanged"));
 };
 
+/*
+ * Orders
+ */
 export const setOrder = (facilityMineral) => {
   const orders = database.orders;
   const filteredOrder = orders.filter((order) => order.facilityId === facilityMineral.facilityId);
-  filteredOrder.length > 0
-    ? (database.orders[filteredOrder[0].id - 1].facilityMineralId = facilityMineral.id)
-    : database.orders.push({
+  if (filteredOrder.length > 0) {
+      database.orders[filteredOrder[0].id - 1].facilityMineralId = facilityMineral.id
+      database.orders[filteredOrder[0].id - 1].mineralName = getMineralById(facilityMineral.mineralId).name
+  } else {
+      database.orders.push({
       id: database.orders.length + 1,
       facilityId: facilityMineral.facilityId,
-      facilityMineralId: facilityMineral.facilityMineralId,
-      mineralName: getMineralById(facilityMineral.mineralId)
+      facilityMineralId: facilityMineral.id,
+      mineralName: getMineralById(facilityMineral.mineralId).name
     })
+  }
 }
+
+export const getOrders = () => {
+  return database.orders.map((order) => ({ ...order }));
+};
 
 
 /*
@@ -213,8 +222,13 @@ export const resetElementById = (htmlTagIdString) => {
 
 document.addEventListener("click", (event) => {
   if (event.target.id === "orderButton") {
-    const transientState = getTransientState();
-    purchaseMineral(transientState.selectedFacilityMineralId, transientState.selectedColonyId);
+    const orders = getOrders();
+    
+    orders.map(order => {
+      purchaseMineral(order.facilityMineralId, database.transientState.selectedColonyId);
+    }) 
+        
+    database.orders = []
     resetElementById("spaceCart");
   }
 });
